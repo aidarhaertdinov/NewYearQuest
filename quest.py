@@ -1,8 +1,6 @@
 
 import tkinter as tk
 from tkinter import messagebox
-import sys
-import os
 
 # Настройка цветов для красивого интерфейса
 COLORS = {
@@ -71,39 +69,48 @@ class QuestApp:
         self.root.geometry("700x700")
         self.root.resizable(False, False)
         self.root.configure(bg=COLORS["bg"])
-
-        # Центрирование окна
-        self.center_window()
+        #
+        # # Центрирование окна
+        # self.center_window()
+        # Простое центрирование без сложной логики
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        x = (screen_width - 700) // 2
+        y = (screen_height - 700) // 2
+        self.root.geometry(f"700x700+{x}+{y}")
 
         # Главный фрейм
         self.main_frame = tk.Frame(self.root, bg=COLORS["bg"])
-        self.main_frame.pack(pady=20, padx=20, fill="both", expand=True)
+        self.main_frame.pack(fill="both", expand=True)
 
-        # Заголовок
-        self.title_label = tk.Label(
-            self.main_frame,
-            text="ТАЙНЫЙ КВЕСТ",
-            font=("Segoe Print", 24, "bold"),
-            fg=COLORS["gold"],
-            bg=COLORS["bg"],
-
-        )
-        self.title_label.pack(pady=20, anchor="center")
+        #Заголовок
+        # self.title_label = tk.Label(
+        #     self.main_frame,
+        #     text="ТАЙНЫЙ КВЕСТ",
+        #     font=("Segoe Print", 24, "bold"),
+        #     fg=COLORS["gold"],
+        #     bg=COLORS["bg"],
+        #
+        # )
+        # self.title_label.pack(pady=20, anchor="center")
 
         # Текст приветствия
+        self.welcome_frame = tk.Frame(self.main_frame, bg=COLORS["bg"])
+        self.welcome_frame.pack(expand=True)
         self.welcome_text = tk.Label(
-            self.main_frame,
-            text="Привет Анастасия, на связи твой Тайный Санта!\nГоворят ты любишь сюрпризы?\n\nОтветь на 7 вопросов, чтобы узнать,где спрятан твой подарок! 💝",
+            self.welcome_frame,
+            text="Привет Анастасия, на связи твой Тайный Санта!\nГоворят ты любишь сюрпризы?\n\nОтветь на 7 вопросов, чтобы узнать, где спрятан твой подарок! 💝",
             font=("Segoe Print", 16),
             fg=COLORS["fg"],
             bg=COLORS["bg"],
-            justify="center"
+            justify="center",
+            wraplength=600
         )
-        self.welcome_text.pack(pady=10)
+        self.welcome_text.pack(pady=(30, 30))
 
         # Кнопка начала
         self.start_button = tk.Button(
-            self.main_frame,
+            self.welcome_frame,
             text="НАЧАТЬ КВЕСТ!",
             command=self.start_quest,
             font=("Segoe Print", 16, "bold"),
@@ -140,13 +147,13 @@ class QuestApp:
             command=self.show_hint,
             font=("Segoe Print", 12),
             bg=COLORS["bg"],
-            fg=COLORS["fg"],
+            fg='#f1828d',
             activebackground=COLORS["bg"],
             activeforeground=COLORS["fg"],
             relief="flat",
             bd=0,
-            highlightbackground="red",  # цвет обводки
-            highlightcolor="red",  # цвет при фокусе
+            highlightbackground="#f1828d",
+            highlightcolor="#f1828d",
             highlightthickness=1,
             cursor="hand2"
         )
@@ -161,9 +168,7 @@ class QuestApp:
         self.root.geometry(f'{width}x{height}+{x}+{y}')
 
     def start_quest(self):
-        self.start_button.pack_forget()
-        self.welcome_text.pack_forget()
-
+        self.welcome_frame.pack_forget()
         self.question_label.pack(pady=20)
         self.answers_frame.pack(pady=10, fill="both", expand=True)
         self.hint_button.pack(pady=10)
@@ -186,8 +191,8 @@ class QuestApp:
                     text=answer,
                     command=lambda idx=i: self.check_answer(idx),
                     font=("Segoe Print", 14),
-                    height=2,
-                    width=20,
+                    height=1,
+                    width=30,
                     bg="#8fb9a8",
                     fg="#fefad4",
                     activebackground="#36719F",
@@ -196,7 +201,7 @@ class QuestApp:
                     relief="flat",
                     bd=0
                 )
-                btn.pack(pady=5, fill="x", padx=10)
+                btn.pack(pady=5, padx=10)
 
 
     def check_answer(self, answer_index):
