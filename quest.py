@@ -1,104 +1,3 @@
-# import customtkinter as ctk
-# from tkinter import messagebox
-#
-# # Настройка темы
-# ctk.set_appearance_mode("light")
-# ctk.set_default_color_theme("blue")
-#
-# QUESTIONS = [
-#     {
-#         "question": "Вопрос 1: Какой у нас общий любимый напиток на перерыве?",
-#         "answer": "кофе"  # Ответ в нижнем регистре для упрощения сравнения
-#     },
-#     {
-#         "question": "Вопрос 2: В каком месяце у тебя день рождения? (укажи название, например: 'март')",
-#         "answer": "ноябрь"
-#     },
-#     {
-#         "question": "Вопрос 3: Как зовут нашего общего коллегу, который всегда носит красные кроссовки?",
-#         "answer": "алексей"
-#     }
-# ]
-#
-# class QuestApp(ctk.CTk):
-#     def __init__(self):
-#         super().__init__()
-#         self.title("🎁 Мини-квест: Найди крем для рук!")
-#         self.geometry("500x300")
-#         self.resizable(False, False)
-#         self.current_question = 0
-#         self.setup_ui()
-#
-#     def setup_ui(self):
-#         self.label = ctk.CTkLabel(
-#             self,
-#             text=QUESTIONS[self.current_question]["question"],
-#             font=("Arial", 16),
-#             wraplength=450,
-#             justify="center"
-#         )
-#         self.label.pack(pady=30)
-#
-#         self.entry = ctk.CTkEntry(self, width=300, font=("Arial", 14))
-#         self.entry.pack(pady=10)
-#         self.entry.bind("<Return>", self.check_answer)  # Enter для подтверждения
-#
-#         self.button = ctk.CTkButton(
-#             self,
-#             text="Проверить ответ",
-#             command=self.check_answer,
-#             font=("Arial", 14)
-#         )
-#         self.button.pack(pady=20)
-#
-#     def check_answer(self, event=None):
-#         user_answer = self.entry.get().strip().lower()
-#         correct_answer = QUESTIONS[self.current_question]["answer"]
-#
-#         if user_answer == correct_answer:
-#             self.current_question += 1
-#             if self.current_question < len(QUESTIONS):
-#                 # Следующий вопрос
-#                 self.label.configure(text=QUESTIONS[self.current_question]["question"])
-#                 self.entry.delete(0, "end")
-#             else:
-#                 # Конец квеста
-#                 self.show_success()
-#         else:
-#             messagebox.showerror("Неверно!", "Попробуй ещё раз 😊")
-#
-#     def show_success(self):
-#         # Очистка интерфейса
-#         for widget in self.winfo_children():
-#             widget.destroy()
-#
-#         success_label = ctk.CTkLabel(
-#             self,
-#             text="🎉 Поздравляю! Ты прошёл квест!",
-#             font=("Arial", 18, "bold")
-#         )
-#         success_label.pack(pady=30)
-#
-#         message = ctk.CTkLabel(
-#             self,
-#             text="Твой подарок — крем для рук —\nлежит в верхнем ящике моего стола.\nНаслаждайся заботой о коже! 💆‍♀️✨",
-#             font=("Arial", 14),
-#             justify="center",
-#             wraplength=450
-#         )
-#         message.pack(pady=20)
-#
-#         close_button = ctk.CTkButton(
-#             self,
-#             text="Закрыть",
-#             command=self.destroy,
-#             font=("Arial", 14)
-#         )
-#         close_button.pack(pady=20)
-#
-# if __name__ == "__main__":
-#     app = QuestApp()
-#     app.mainloop()
 
 import tkinter as tk
 from tkinter import messagebox
@@ -107,13 +6,12 @@ import os
 
 # Настройка цветов для красивого интерфейса
 COLORS = {
-    "bg": "#2b2b2b",
-    "fg": "#ffffff",
-    "accent": "#FF6B9D",
+    "bg": "#765d69",
+    "fg": "#fcd0ba",
+    "accent": "#8fb9ab",
     "accent_hover": "#E55A8A",
     "success": "#50C878",
-    "progress": "#3B8ED0",
-    "gold": "#FFD700"
+    "gold": "#fefad4"
 }
 
 
@@ -122,22 +20,46 @@ class QuestApp:
         self.current_question = 0
         self.questions = [
             {
-                "question": "🎯 ВОПРОС 1/3\n\nБез чего не может работать ни программист, ни повар,\nЧто защищает от холода и ветра,\nИ бывает лечебным, увлажняющим, а иногда и кремовым?",
-                "answers": ["Голова", "Руки", "Ноги", "Сердце"],
-                "correct": 1,
-                "hint": "Подсказка: именно ими ты печатаешь этот текст 🤔"
+                "question": "🎯 ВОПРОС 1/7\n\n«Что уходит быстрее всего, когда мы погружены в задачу?»",
+                "answers": ["Кофе", "Батарея", "Время", "Интернет"],
+                "correct": 2,
+                "hint": "Подсказка: Кажется, только сел за работу — а уже обед!"
             },
             {
-                "question": "🎯 ВОПРОС 2/3\n\nНе в саду, а в тюбике или баночке,\nПачули, лаванда или ваниль…\nУгадай, что это может быть?",
-                "answers": ["Цветок", "Аромат", "Еда", "Напиток"],
-                "correct": 1,
-                "hint": "Подсказка: почувствуй запах кофе на кухне ☕"
+                "question": "🎯 ВОПРОС 2/7\n\nЧто все обещают написать 'потом', но 'потом' никогда не наступает?",
+                "answers": ["Документация к коду", "Завещание", "Письмо Деду Морозу", "Роман"],
+                "correct": 0,
+                "hint": "Подсказка: Самая популярная фраза: 'и так все понятно'"
             },
             {
-                "question": "🎯 ВОПРОС 3/3\n\nФинальная загвоздка! Вспомни, что говорят:\n'Сухие…' – жалоба, которую часто слышат в офисах.\nЧто мажут, чтобы вернуть мягкость и нежность?",
-                "answers": ["Хлеб", "Кожа", "Волосы", "Обувь"],
+                "question": "🎯 ВОПРОС 3/7\n\nЧто наступает внезапно, как налоговая проверка, и так же не радует?",
+                "answers": ["Июльская жара", "День рождение тещи", "Понедельник"],
+                "correct": 2,
+                "hint": "Подсказка:  Утро этого дня - это как холодный душ без предупреждения"
+            },
+            {
+                "question": "🎯 ВОПРОС 4/7\n\nЧто пахнет так соблазнительно, что может остановить работу всего отдела?",
+                "answers": ["Новые духи коллеги", "Еда в микроволновке", "Деньги", "Новые ароматизированные маркеры"],
                 "correct": 1,
-                "hint": "Подсказка: ищи там, где хранят заботу о себе 💫"
+                "hint": "Подсказка:  Особенно когда кто-то разогревает рыбу"
+            },
+            {
+                "question": "🎯 ВОПРОС 5/7\n\nЧто появляется внезапно, как призрак, и заставляет всех работать в 3 раза быстрее?",
+                "answers": ["Уборщица", "Вдохновение", "Внезапный дедлайн", "Офисный кот"],
+                "correct": 2,
+                "hint": "Подсказка:  Чаще всего возникает в пятницу"
+            },
+            {
+                "question": "🎯 ВОПРОС 6/7\n\nЧто в офисном кабинете имеет 'окна', но не является стеклянным?",
+                "answers": ["Аквариум", "Микроволновка", "Окно", "Картина", "Монитор"],
+                "correct": 4,
+                "hint": "Подсказка:  На него мы смотрим больше всего в течение дня"
+            },
+            {
+                "question": "🎯 ФИНАЛЬНЫЙ ВОПРОС\n\nКакая фамилия у директора АВАНТИСА???(чур на корп.сайт не заходить)",
+                "answers": ["Сайфутинов", "Сайфудинов", "Сайфутдинов", "Сайфетдинов", "Сафутдинов"],
+                "correct": 2,
+                "hint": "Подсказка: ну тут без меня, прости"
             }
         ]
 
@@ -145,8 +67,8 @@ class QuestApp:
 
     def setup_ui(self):
         self.root = tk.Tk()
-        self.root.title("🎁 Тайный Квест для Коллеги")
-        self.root.geometry("600x500")
+        self.root.title("🎁 Тайный Квест для Анастасии")
+        self.root.geometry("700x700")
         self.root.resizable(False, False)
         self.root.configure(bg=COLORS["bg"])
 
@@ -160,18 +82,19 @@ class QuestApp:
         # Заголовок
         self.title_label = tk.Label(
             self.main_frame,
-            text="🎁 ТАЙНЫЙ КВЕСТ 🎁",
-            font=("Arial", 24, "bold"),
+            text="ТАЙНЫЙ КВЕСТ",
+            font=("Segoe Print", 24, "bold"),
             fg=COLORS["gold"],
-            bg=COLORS["bg"]
+            bg=COLORS["bg"],
+
         )
-        self.title_label.pack(pady=20)
+        self.title_label.pack(pady=20, anchor="center")
 
         # Текст приветствия
         self.welcome_text = tk.Label(
             self.main_frame,
-            text="Привет! Ты нашёл секретную программу!\n\nОтветь на 3 вопроса, чтобы узнать,\nгде спрятан твой подарок! 💝",
-            font=("Arial", 16),
+            text="Привет Анастасия, на связи твой Тайный Санта!\nГоворят ты любишь сюрпризы?\n\nОтветь на 7 вопросов, чтобы узнать,где спрятан твой подарок! 💝",
+            font=("Segoe Print", 16),
             fg=COLORS["fg"],
             bg=COLORS["bg"],
             justify="center"
@@ -183,10 +106,10 @@ class QuestApp:
             self.main_frame,
             text="НАЧАТЬ КВЕСТ!",
             command=self.start_quest,
-            font=("Arial", 16, "bold"),
+            font=("Segoe Print", 16, "bold"),
             bg=COLORS["accent"],
             fg="white",
-            activebackground=COLORS["accent_hover"],
+            activebackground='#40A060',
             activeforeground="white",
             height=2,
             width=20,
@@ -196,19 +119,11 @@ class QuestApp:
         )
         self.start_button.pack(pady=20)
 
-        # Прогресс бар (имитация)
-        self.progress_frame = tk.Frame(self.main_frame, bg=COLORS["bg"])
-        self.progress_frame.pack(pady=10, fill="x", padx=50)
-
-        self.progress_canvas = tk.Canvas(self.progress_frame, height=20, bg=COLORS["bg"], highlightthickness=0)
-        self.progress_canvas.pack(fill="x")
-        self.progress_bar = self.progress_canvas.create_rectangle(0, 0, 0, 20, fill=COLORS["progress"], outline="")
-
         # Текст вопроса
         self.question_label = tk.Label(
             self.main_frame,
             text="",
-            font=("Arial", 14),
+            font=("Segoe Print", 14),
             fg=COLORS["fg"],
             bg=COLORS["bg"],
             wraplength=500,
@@ -223,13 +138,16 @@ class QuestApp:
             self.main_frame,
             text="💡 Подсказка",
             command=self.show_hint,
-            font=("Arial", 12),
+            font=("Segoe Print", 12),
             bg=COLORS["bg"],
             fg=COLORS["fg"],
             activebackground=COLORS["bg"],
             activeforeground=COLORS["fg"],
             relief="flat",
-            bd=1,
+            bd=0,
+            highlightbackground="red",  # цвет обводки
+            highlightcolor="red",  # цвет при фокусе
+            highlightthickness=1,
             cursor="hand2"
         )
 
@@ -267,22 +185,19 @@ class QuestApp:
                     self.answers_frame,
                     text=answer,
                     command=lambda idx=i: self.check_answer(idx),
-                    font=("Arial", 14),
+                    font=("Segoe Print", 14),
                     height=2,
                     width=20,
-                    bg="#3B8ED0",
-                    fg="white",
+                    bg="#8fb9a8",
+                    fg="#fefad4",
                     activebackground="#36719F",
-                    activeforeground="white",
+                    activeforeground="#f1828d",
                     cursor="hand2",
                     relief="flat",
                     bd=0
                 )
                 btn.pack(pady=5, fill="x", padx=10)
 
-            # Обновляем прогресс
-            progress_width = (self.current_question / len(self.questions)) * 500
-            self.progress_canvas.coords(self.progress_bar, 0, 0, progress_width, 20)
 
     def check_answer(self, answer_index):
         question_data = self.questions[self.current_question]
@@ -306,36 +221,39 @@ class QuestApp:
         for widget in self.main_frame.winfo_children():
             widget.destroy()
 
-        # Финальное сообщение
-        final_text = """🎉 ПОЗДРАВЛЯЮ! Ты прошел квест! 🎉
-
-Твой подарок ждет тебя там, где хранят заботу о руках 💝
-
-Ищи крем для рук в ящике с надписью:
-'Для того, чьи руки творят добро и магию каждый день'
-
-Спасибо за твой труд! 💫
-
-P.S. Надеюсь, тебе понравился这个小 квест! 😊"""
-
-        final_label = tk.Label(
+        # ✅ Заголовок — отдельно, по центру, оранжевый
+        title_label = tk.Label(
             self.main_frame,
-            text=final_text,
-            font=("Arial", 14),
+            text="ПОЗДРАВЛЯЮ АНАСТАСИЯ!!!",
+            font=("Segoe Print", 16, "bold"),
+            fg="orange",
+            bg=COLORS["bg"]
+        )
+        title_label.pack(pady=(30, 10), anchor="center")
+
+        # ✅ Основной текст — белый, по центру
+        message_label = tk.Label(
+            self.main_frame,
+            text=(
+                "Ты ответила на все вопросы!\n\n"
+                "Твой подарок ждёт тебя у того, кто отправил тебе этот файлик \n\n"
+                "P.S. Надеюсь, тебе понравился квест! "
+            ),
+            font=("Segoe Print", 14),
             fg=COLORS["fg"],
             bg=COLORS["bg"],
             justify="center",
             wraplength=500
         )
-        final_label.pack(pady=30, padx=20)
+        message_label.pack(pady=10, padx=20)
 
         # Кнопка выхода
         exit_btn = tk.Button(
             self.main_frame,
             text="Закрыть программу",
             command=self.root.destroy,
-            font=("Arial", 14, "bold"),
-            bg=COLORS["success"],
+            font=("Segoe Print", 14, "bold"),
+            bg='#8fb9a8',
             fg="white",
             activebackground="#40A060",
             activeforeground="white",
@@ -346,9 +264,6 @@ P.S. Надеюсь, тебе понравился这个小 квест! 😊"""
             bd=0
         )
         exit_btn.pack(pady=20)
-
-        # Полный прогресс
-        self.progress_canvas.coords(self.progress_bar, 0, 0, 500, 20)
 
     def run(self):
         self.root.mainloop()
